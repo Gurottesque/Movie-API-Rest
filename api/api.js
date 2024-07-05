@@ -25,20 +25,30 @@ class api {
                 language: language,
                 query: query,
                 region: region,
+                include_adult : include_adult
                 },
             });
 
             let finalData = response.data.results;
 
-            if (genres) {
-                finalData = response.data.results.filter((movie) => {
-                    return movie.genre_ids.some((genreId) => genres.includes(genreId));
-                });
-            }
+            if (genres){
+                const genreList = await TMDB_API.get(`genre/${media_type}/list`)
+          
+                let genereList = genreList.data.genres.filter((genere) =>{
+                  if (genere.name == genres){
+                    return genere
+                  };
+                })
+                
+               finalData = finalData.filter((content)=>{
+                  return content.genre_ids.includes(genereList[0].id)
+                })
+              }
+          
 
             return finalData;
         }
-        catch (error) { return `Error en la petición, codigo ${error.response.status}`; }
+        catch (error) { console.log(error);return `Error en la petición, codigo ${error.response.status}`; }
     }
 
     static async getData(id, media_type) {
