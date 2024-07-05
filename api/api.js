@@ -71,6 +71,15 @@ class api {
 
     }
 
+    static async health() {
+        try {
+            await TMDB_API.get(`/movie/606`);
+            return true;
+        }
+        catch (error) { return false; }
+  
+    }
+
 }
 
 export default api;
