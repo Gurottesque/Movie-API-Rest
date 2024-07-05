@@ -25,6 +25,11 @@ app.get('/api/trending/:type', async (req, res) => {
 
 })
 
+app.get('/api/health', async (req, res) => {
+    res.send(await api.health() ? 'Api funcional' : 'Api caida');
+
+} )
+
 app.listen(port, () => {
     console.log("Escuchando en el puerto", port)
 })
