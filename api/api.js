@@ -48,7 +48,7 @@ class api {
 
             return finalData;
         }
-        catch (error) { console.log(error);return `Error en la petición, codigo ${error.response.status}`; }
+        catch (error) { return `Error en la petición, codigo ${error.response.status}`; }
     }
 
     static async getData(id, media_type) {
